@@ -15,6 +15,7 @@ class Validator {
     static let sharedInstance = Validator()
     var brands: Results<Brand>?
     var clothingTypes: Results<ClothingType>?
+    var brandSpecialCase = "Hugo Boss"
     
     func isAppFirstLaunch() -> Bool {
         let isNotFirstLaunch = NSUserDefaults.standardUserDefaults().boolForKey("NotFirstLaunch")
@@ -42,5 +43,15 @@ class Validator {
         }else {
             return false
         }
+    }
+    
+    func stringHasSpecialSubString(string: String) -> Bool {
+        let range = string.capitalizedString.rangeOfString(brandSpecialCase)
+        if(range != nil) {
+            return true
+        }else {
+            return false
+        }
+
     }
 }

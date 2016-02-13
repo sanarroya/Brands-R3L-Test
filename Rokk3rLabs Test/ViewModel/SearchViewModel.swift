@@ -12,15 +12,20 @@ import RealmSwift
 
 class SearchViewModel {
     
-    func searchParts(searchTerm searchTerm: String) -> Dictionary<String, Array<String>> {
+    func searchParts(var searchTerm searchTerm: String) -> Dictionary<String, Array<String>> {
         var searchPartsClassified = Dictionary<String, Array<String>>()
         var brandsFound = Array<String>()
         var clothingTypesFound = Array<String>()
         var resultQuery = Array<String>()
         
+        if(Validator.sharedInstance.stringHasSpecialSubString(searchTerm)) {
+            searchTerm = searchTerm.stringByReplacingOccurrencesOfString(Validator.sharedInstance.brandSpecialCase, withString: "")
+            brandsFound.append(Validator.sharedInstance.brandSpecialCase)
+        }
         let searchtermArray = searchTerm.characters.split{ $0 == " "}.map(String.init)
         let searchSet = Set<String>(searchtermArray)
         let finaltermsArray = Array(searchSet)
+        
         for word in finaltermsArray {
             let resultType = Validator.sharedInstance.findWorldInRealm(word: word)
             

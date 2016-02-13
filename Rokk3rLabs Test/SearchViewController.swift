@@ -17,7 +17,13 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        model.searchParts(searchTerm: "boss denim red pants hugo boss")
+        var string = "boss denim red pants hugo boss"
+        let range = string.capitalizedString.rangeOfString("Hugo Boss")
+        if(range != nil) {
+            print(string.capitalizedString.stringByReplacingOccurrencesOfString("Hugo Boss", withString: ""))
+        }
+        
+        model.searchParts(searchTerm: "boss denim red pants hugo boss".capitalizedString)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
